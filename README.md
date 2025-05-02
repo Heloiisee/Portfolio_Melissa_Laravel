@@ -13,7 +13,7 @@ Il présente mes projets, mes compétences et mes veilles technologiques, avec u
 - ✅ Design moderne avec Bootstrap 5
 - ✅ Intégration d’images via Laravel Storage
 - ✅ Utilisation de PostgreSQL
-- ✅ Interface simple, légère et éco-conçue 🌱
+
 
 ---
 
