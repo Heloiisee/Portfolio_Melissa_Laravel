@@ -78,8 +78,10 @@
                             <h2 class="text-start fw-bold">En savoir plus sur mes compétences...</h2>
                             <hr class="w-25 my-3 border-2 ">
                             <p>Vous souhaitez en savoir plus sur mes compétences et mes réalisations ?</p>
-                            <a href="{{ asset('pdf/Melissa_Guicheron_CV.pdf') }}" class="btn btn-custom w-auto me-1">Mon CV</a>
-                            <a href="{{ asset('pdf/doc.pdf') }}" class="btn btn-custom w-auto">Tableau de synthèse</a>
+                            <a href="{{ asset('pdf/CV_2025-04-29_Melissa_Guicheron-2.pdf') }}" class="btn btn-custom w-auto me-2">Mon CV</a>
+                            <a href="{{ asset('pdf/tableau_de_synthèse_v2.pdf') }}" class="btn btn-custom w-auto me-2">Tableau de synthèse</a>
+                            <a href="{{ asset('pdf/Attestation_de_stage.pdf') }}" class="btn btn-custom w-auto me-2">Attestation du stage 1</a>
+                            <a href="{{ asset('pdf/Attestation_de_stage_2.pdf') }}" class="btn btn-custom w-auto me-2">Attestation du stage 2</a>
                     </div>
                 </div>
     </section>

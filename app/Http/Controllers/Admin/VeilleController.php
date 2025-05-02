@@ -63,20 +63,21 @@ class VeilleController extends Controller
         'categorie' => 'nullable|string|max:255',
     ]);
 
+    // Gestion du PDF
     if ($request->type === 'pdf' && $request->hasFile('pdf_file')) {
-        $pdfPath = $request->file('pdf_file')->store('pdfs', 'public');
-        $data['source'] = $pdfPath;
+        $data['source'] = $request->file('pdf_file')->store('pdfs', 'public');
     }
-    
+
+    // Gestion de l’image
     if ($request->hasFile('image')) {
-        $imagePath = $request->file('image')->store('images', 'public');
-        $data['image'] = $imagePath;
+        $data['image'] = $request->file('image')->store('images', 'public');
     }
 
     Veille::create($data);
 
     return redirect()->route('admin.veilles.index')->with('success', 'Veille ajoutée avec succès.');
 }
+
 
 
     /**

@@ -687,6 +687,75 @@ footer{
     }
 }
 
+.veilles_dynamiques{
+    width: 100%;
+    min-height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $color-secondary;
+    padding: 4rem 0;
+
+    h1, p {
+        color: $color-primary;
+        margin-bottom: 1.5rem;
+    }
+
+    p{
+        font-size: $font-size-tiny;
+    }
+
+    .veille-card-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 20px; // Espace entre les cartes
+    }
+}
+
+.veille-card {
+    border-radius: $card-border-radius;
+    box-shadow: $card-shadow;
+    transition: transform 0.3s ease;
+
+    &:hover {
+        transform: scale($card-hover-scale);
+    }
+
+    .veille-img {
+        border-top-left-radius: $card-border-radius;
+        border-top-right-radius: $card-border-radius;
+        object-fit: cover;
+        height: 200px;
+    }
+
+    .veille-title {
+        font-size: $title-font-size;
+        color: $color-primary;
+    }
+
+    .veille-text {
+        font-size: $text-font-size;
+        color: $color-primary;
+        flex-grow: 1;
+    }
+}
+
+.btn-custom {
+    background-color: $color-primary;
+    color: $color-secondary;
+    border: none;
+    font-weight: bold;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+
+    &:hover {
+        background-color: darken($color-primary, 8%);
+        transform: scale($btn-hover-scale);
+    }
+}
+
+
 // Page de certification
 
 .certifications{

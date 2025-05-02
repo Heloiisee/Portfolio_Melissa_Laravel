@@ -44,36 +44,39 @@
                 </div>
             </div>
         </section>
-        <section class="veilles_dynamiques py-5">
-        <div class="container py-5">
-    <h1 class="mb-4 text-center">Veille Technologique</h1>
-    <p class="text-center mb-5">
+        <section class="veilles_dynamiques py-5 reveal">
+        <div class="container py-5 reveal-1">
+    <h1 class="mb-4  fw-bold text-center reveal-2">Veille Technologique</h1>
+    <p class="text-center mb-5 reveal-3">
         Retrouvez ici mes ressources et outils découverts au fil de ma veille : frameworks, réseaux sociaux, outils utiles et plus encore.
     </p>
 
-    @if(count($veilles) > 0)
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-            @foreach ($veilles as $veille)
-                <div class="col">
-                    <div class="card h-100">
-                        @if($veille->image)
-                            <img src="{{ asset('storage/' . $veille->image) }}" class="card-img-top" alt="{{ $veille->titre }}">
+    @if($veilles->count() > 0)
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 rev">
+        @foreach ($veilles as $veille)
+            <div class="col">
+                <div class="card veille-card h-100 shadow-sm">
+                    @if($veille->image)
+                        <img src="{{ asset('storage/' . $veille->image) }}" class="card-img-top veille-img" alt="{{ $veille->titre }}">
+                    @endif
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title fw-bold veille-title">{{ $veille->titre }}</h5>
+                        <p class="card-text veille-text">{{ Str::limit($veille->contenu, 100) }}</p>
+                        <p class="mt-auto text-muted small"><strong>Catégorie :</strong> {{ ucfirst($veille->categorie) }}</p>
+                        @if($veille->source)
+                            <a href="{{ $veille->source }}" target="_blank" class="btn btn-custom mt-3 align-self-start">
+                                <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Voir la source
+                            </a>
                         @endif
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">{{ $veille->titre }}</h5>
-                            <p class="card-text">{{ Str::limit($veille->contenu, 100) }}</p>
-                            <p class="mt-auto"><strong>Catégorie :</strong> {{ ucfirst($veille->categorie) }}</p>
-                            @if($veille->source)
-                                <a href="{{ $veille->source }}" target="_blank" class="btn btn-outline-primary mt-2">Voir la source</a>
-                            @endif
-                        </div>
                     </div>
                 </div>
-            @endforeach
-        </div>
-    @else
-        <p class="text-center">Aucune veille disponible pour le moment.</p>
-    @endif
+            </div>
+        @endforeach
+    </div>
+@else
+    <p class="text-center mt-5 text-muted">Aucune veille disponible pour le moment.</p>
+@endif
+
 </div>
     </section>
 
