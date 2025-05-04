@@ -57,4 +57,4 @@ RUN chown -R www-data:www-data /var/www \
 EXPOSE 8000
 
 # Lancer Laravel
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8080"]
