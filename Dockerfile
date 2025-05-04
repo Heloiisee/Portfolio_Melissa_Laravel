@@ -30,6 +30,7 @@ RUN apk add --no-cache \
     icu-dev \
     zlib-dev \
     libxml2-dev \
+    postgresql-dev \
     && docker-php-ext-install pdo pdo_pgsql zip intl opcache \
     && docker-php-ext-configure gd \
         --with-freetype \
