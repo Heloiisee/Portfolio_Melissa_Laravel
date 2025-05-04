@@ -2,10 +2,10 @@ version: '3.8'
 
 services:
   app:
-    container_name: PortfolioM
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: portfoliom_app
     ports:
       - "8000:8000"
     volumes:
@@ -19,16 +19,17 @@ services:
       DB_CONNECTION: pgsql
       DB_HOST: db
       DB_PORT: 5432
-      DB_DATABASE: PortfolioM
+      DB_DATABASE: portfoliom
       DB_USERNAME: postgres
       DB_PASSWORD: Hachi3334*
+    restart: unless-stopped
 
   db:
     image: postgres:16
-    container_name: PortfolioM_db
+    container_name: portfoliom_db
     restart: always
     environment:
-      POSTGRES_DB: PortfolioM
+      POSTGRES_DB: portfoliom
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: Hachi3334*
     volumes:

@@ -22,14 +22,20 @@ RUN npm run build
 FROM php:8.2-fpm-alpine
 
 # Installer dépendances système
-RUN apk update && apk add --no-cache \
-    libpq-dev \
-    libzip-dev \
-    unzip \
-    git \
-    curl \
-    bash \
-    && docker-php-ext-install pdo pdo_pgsql zip
+RUN apk add --no-cache \
+    libpng-dev \
+    libjpeg-turbo-dev \
+    freetype-dev \
+    oniguruma-dev \
+    icu-dev \
+    zlib-dev \
+    libxml2-dev \
+    && docker-php-ext-install pdo pdo_pgsql zip intl opcache \
+    && docker-php-ext-configure gd \
+        --with-freetype \
+        --with-jpeg \
+    && docker-php-ext-install gd
+
 
 # Installer Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
@@ -42,9 +48,6 @@ COPY . .
 
 # Copier les assets compilés avec Vite
 COPY --from=vite-builder /app/public/build ./public/build
-
-# Créer le .env si nécessaire
-RUN cp .env.example .env
 
 # Générer la clé d’application
 RUN php artisan key:generate
@@ -65,4 +68,5 @@ RUN chown -R www-data:www-data /var/www \
 EXPOSE 8000
 
 # Démarrer Laravel
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=${PORT}"]
+
