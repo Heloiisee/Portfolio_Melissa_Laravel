@@ -5,15 +5,28 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      container_name: PortfolioM
     ports:
       - "8000:8000"
     volumes:
       - .:/var/www
     depends_on:
       - db
+    environment:
+      APP_ENV: production
+      APP_DEBUG: false
+      APP_KEY: ${APP_KEY}
+      DB_CONNECTION: pgsql
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_DATABASE: PortfolioM
+      DB_USERNAME: postgres
+      DB_PASSWORD: Hachi3334*
+    
 
   db:
     image: postgres:16
+    container_name: PortfolioM_db
     restart: always
     environment:
       POSTGRES_DB: PortfolioM
@@ -21,6 +34,8 @@ services:
       POSTGRES_PASSWORD: Hachi3334*
     volumes:
       - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
 
 volumes:
   pgdata:
