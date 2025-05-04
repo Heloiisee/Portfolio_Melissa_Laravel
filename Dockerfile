@@ -5,11 +5,11 @@ FROM node:18-alpine AS vite-builder
 
 WORKDIR /app
 
-# Copier les fichiers nécessaires
+# Copier les fichiers nécessaires pour npm
 COPY package*.json vite.config.* ./
 RUN npm install
 
-# Copier les sources du frontend
+# Copier les sources pour build Vite
 COPY resources ./resources
 COPY public ./public
 
@@ -17,11 +17,11 @@ COPY public ./public
 RUN npm run build
 
 # ===============================
-# Étape 2 : Base Laravel + PHP
+# Étape 2 : Laravel avec PHP
 # ===============================
 FROM php:8.2-fpm-alpine
 
-# Dépendances système nécessaires
+# Installer dépendances système
 RUN apk update && apk add --no-cache \
     libpq-dev \
     libzip-dev \
@@ -31,35 +31,38 @@ RUN apk update && apk add --no-cache \
     bash \
     && docker-php-ext-install pdo pdo_pgsql zip
 
-# Installer Composer depuis une image officielle
+# Installer Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Définir le dossier de travail
+# Définir le répertoire de travail
 WORKDIR /var/www
 
-# Copier tous les fichiers Laravel
+# Copier les fichiers du projet
 COPY . .
-
-# Créer un fichier .env (ou le copier s’il existe)
-RUN cp .env.example .env
-
-# Installer les dépendances PHP de Laravel
-RUN composer install --no-dev --optimize-autoloader
 
 # Copier les assets compilés avec Vite
 COPY --from=vite-builder /app/public/build ./public/build
 
-# Donne les bonnes permissions (facultatif mais recommandé)
+# Créer le .env si nécessaire
+RUN cp .env.example .env
+
+# Générer la clé d’application
+RUN php artisan key:generate
+
+# Installer les dépendances PHP sans les scripts pour éviter les erreurs
+RUN composer install --no-dev --optimize-autoloader --no-scripts
+
+# Cacher la config, routes et vues
+RUN php artisan config:cache && \
+    php artisan route:cache && \
+    php artisan view:cache
+
+# Donner les bonnes permissions
 RUN chown -R www-data:www-data /var/www \
     && chmod -R 755 storage bootstrap/cache
 
-# Variables d'environnement
-ENV APP_ENV=production
-ENV APP_DEBUG=false
-
-# Expose le port Laravel (artisan serve)
+# Exposer le port Laravel
 EXPOSE 8000
 
-# Commande de démarrage
-CMD ["sh", "-c", "php artisan config:cache && php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=8000"]
-
+# Démarrer Laravel
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
