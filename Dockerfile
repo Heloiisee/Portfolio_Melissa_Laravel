@@ -49,12 +49,6 @@ RUN composer install --no-dev --optimize-autoloader --no-scripts
 # Copier les assets Vite
 COPY --from=vite-builder /app/public/build ./public/build
 
-# Artisan (manuellement, car pas de .env local dans Render)
-RUN php artisan key:generate \
-    && php artisan config:cache \
-    && php artisan route:cache \
-    && php artisan view:cache
-
 # Permissions recommandées
 RUN chown -R www-data:www-data /var/www \
     && chmod -R 755 storage bootstrap/cache
