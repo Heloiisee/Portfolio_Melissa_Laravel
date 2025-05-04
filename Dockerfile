@@ -31,6 +31,7 @@ RUN apk add --no-cache \
     zlib-dev \
     libxml2-dev \
     postgresql-dev \
+    libzip-dev \
     && docker-php-ext-install pdo pdo_pgsql zip intl opcache \
     && docker-php-ext-configure gd \
         --with-freetype \
