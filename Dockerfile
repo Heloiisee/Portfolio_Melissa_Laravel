@@ -40,6 +40,9 @@ WORKDIR /var/www
 # Copier tous les fichiers Laravel
 COPY . .
 
+# Créer un fichier .env (ou le copier s’il existe)
+RUN cp .env.example .env
+
 # Installer les dépendances PHP de Laravel
 RUN composer install --no-dev --optimize-autoloader
 
