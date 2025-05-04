@@ -1,5 +1,5 @@
 # ===============================
-# Étape 1 : Build des assets avec Vite
+# Étape 1 : Builder les assets avec Vite
 # ===============================
 FROM node:18-alpine AS vite-builder
 
@@ -10,16 +10,14 @@ RUN npm install
 
 COPY resources ./resources
 COPY public ./public
-
 RUN npm run build
 
-
 # ===============================
-# Étape 2 : Base Laravel + PHP
+# Étape 2 : Image PHP/Laravel
 # ===============================
 FROM php:8.2-fpm-alpine
 
-# Installer les dépendances nécessaires
+# Dépendances nécessaires
 RUN apk add --no-cache \
     libpng-dev \
     libjpeg-turbo-dev \
@@ -30,9 +28,9 @@ RUN apk add --no-cache \
     libxml2-dev \
     libzip-dev \
     postgresql-dev \
-    unzip \
-    git \
     curl \
+    git \
+    unzip \
     bash \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install pdo pdo_pgsql zip intl opcache gd
@@ -40,31 +38,29 @@ RUN apk add --no-cache \
 # Installer Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Dossier de travail
 WORKDIR /var/www
 
-# Copier les fichiers Laravel
+# Copier les fichiers
 COPY . .
 
-# Copier les assets compilés avec Vite
+# Installer les dépendances PHP sans scripts
+RUN composer install --no-dev --optimize-autoloader --no-scripts
+
+# Copier les assets Vite
 COPY --from=vite-builder /app/public/build ./public/build
 
-# Installer les dépendances PHP de Laravel
-RUN composer install --no-dev --optimize-autoloader
-
-# Configuration Laravel
-RUN cp .env.example .env \
-    && php artisan key:generate \
+# Artisan (manuellement, car pas de .env local dans Render)
+RUN php artisan key:generate \
     && php artisan config:cache \
     && php artisan route:cache \
     && php artisan view:cache
 
-# Droits pour les dossiers nécessaires
+# Permissions recommandées
 RUN chown -R www-data:www-data /var/www \
     && chmod -R 755 storage bootstrap/cache
 
-# Port exposé
+# Exposer le port (utilisé par Laravel)
 EXPOSE 8000
 
-# Commande de démarrage
+# Lancer Laravel
 CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
