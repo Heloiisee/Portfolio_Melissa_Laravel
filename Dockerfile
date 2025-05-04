@@ -16,7 +16,7 @@ RUN npm run build
 FROM php:8.2-fpm-alpine
 
 # Installer les extensions nécessaires
-RUN apt-get update && apt-get install -y \
+RUN apk update && apk install -y \
     libpq-dev libzip-dev unzip git curl \
     && docker-php-ext-install pdo pdo_pgsql zip
 
