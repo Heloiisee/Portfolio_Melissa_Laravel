@@ -12,7 +12,7 @@
                 <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
                     <ul class="navbar-nav mx-auto d-flex flex-row gap-3">
                         <li class="nav-item">
-                            <a class="nav-link fw-medium" href="{{ url('/') }}">Accueil</a>
+                            <a class="nav-link fw-medium" href="{{route('home') }}">Accueil</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link fw-medium" href="{{ route('projects.index') }}">Projets</a>

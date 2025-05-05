@@ -10,7 +10,7 @@
                 <div class="col-md-6 reveal-2">
                     <h3> <strong>Navigation</strong></h3>
                     <ul class="list-unstyled">
-                        <li><a href="{{ url('/') }}">Accueil</a></li>
+                        <li><a href="{{ route(('home')) }}">Accueil</a></li>
                         <li><a href="{{ route('projects.index') }}">Projets</a></li>
                         <li><a href="{{ route('veilles.index') }}">Veilles</a></li>
                         <li><a href="{{ route('propos.index') }}">Propos</a></li>
