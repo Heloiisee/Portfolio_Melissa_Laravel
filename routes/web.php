@@ -17,6 +17,10 @@ Route::get('/test', function () {
     return 'OK';
 });
 
+Route::get('/test-db', function () {
+    return \App\Models\Project::take(1)->get();
+});
+
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/projets', [ProjectController::class, 'showProjects'])->name('projects.index');
