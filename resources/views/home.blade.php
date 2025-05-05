@@ -46,7 +46,7 @@
                                     loading="lazy" 
                                     src="{{ asset('storage/' . $project->image) }}" 
                                     class="card-img-top" 
-                                    alt="Capture d'écran du projet {{ $project->title }}">
+                                    alt="Capture d'écran du projet {{ $project->titre }}">
                             @else
                                 <img 
                                     loading="lazy" 
@@ -56,7 +56,7 @@
                             @endif
 
                             <div class="card-body">
-                                <h5 class="card-title">{{ $project->title }}</h5>
+                                <h5 class="card-title">{{ $project->titre }}</h5>
                                 <p class="card-text">{{ \Illuminate\Support\Str::limit($project->description, 100) }}</p>
                                 <p class="card-text">
                                     <small class="text-custom">Langages utilisés : {{ $project->technologies }}</small>
