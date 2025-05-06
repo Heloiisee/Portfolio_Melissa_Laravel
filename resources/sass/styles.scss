@@ -323,6 +323,8 @@ body{
 footer{
     background-color: $color-primary;
     padding: 2rem 0;
+    max-height: 100vh;
+    display: flex;
     h3{
         color: $color-secondary;
     }
