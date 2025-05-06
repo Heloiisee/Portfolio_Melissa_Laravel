@@ -72,19 +72,25 @@
         </div>
     </section> 
 
-    <section class="competences-info">
-                <div class="container">
-                    <div class="row text-start justify-content-start ">
-                            <h2 class="text-start fw-bold">En savoir plus sur mes compétences...</h2>
-                            <hr class="w-25 my-3 border-2 ">
-                            <p>Vous souhaitez en savoir plus sur mes compétences et mes réalisations ?</p>
-                            <a href="{{ asset('pdf/CV_2025-04-29_Melissa_Guicheron-2.pdf') }}" class="btn btn-custom w-auto me-2">Mon CV</a>
-                            <a href="{{ asset('pdf/tableau_de_synthèse_v2.pdf') }}" class="btn btn-custom w-auto me-2">Tableau de synthèse</a>
-                            <a href="{{ asset('pdf/Attestation_de_stage.pdf') }}" class="btn btn-custom w-auto me-2">Attestation du stage 1</a>
-                            <a href="{{ asset('pdf/Attestation_de_stage_2.pdf') }}" class="btn btn-custom w-auto me-2">Attestation du stage 2</a>
-                    </div>
+    <section class="competences-info py-5 ">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-10 offset-md-1 text-start">
+                <h2 class="fw-bold">En savoir plus sur mes compétences...</h2>
+                <hr class="w-25 my-3 border-2">
+                <p>Vous souhaitez en savoir plus sur mes compétences et mes réalisations ?</p>
+                
+                <div class="d-flex flex-wrap gap-2 mt-3">
+                    <a href="{{ asset('pdf/CV_2025-04-29_Melissa_Guicheron-2.pdf') }}" class="btn btn-custom">Mon CV</a>
+                    <a href="{{ asset('pdf/tableau_de_synthèse_v2.pdf') }}" class="btn btn-custom">Tableau de synthèse</a>
+                    <a href="{{ asset('pdf/Attestation_de_stage.pdf') }}" class="btn btn-custom">Attestation du stage 1</a>
+                    <a href="{{ asset('pdf/Attestation_de_stage_2.pdf') }}" class="btn btn-custom">Attestation du stage 2</a>
                 </div>
-    </section>
+            </div>
+        </div>
+    </div>
+</section>
+
 </section>
 <section class="certifications reveal">
     <div class="container">
@@ -104,7 +110,7 @@
         </div>
     </div>
 </section>
-<section class="parcours-scolaire py-5 bg-light reveal">
+<section class="parcours-scolaire bg-light reveal">
     <div class="container">
         <h2 class="text-center text-2xl fw-bold mb-4 reveal-1">Parcours scolaire</h2>
         <hr class="w-25 mx-auto border-2 mb-5">

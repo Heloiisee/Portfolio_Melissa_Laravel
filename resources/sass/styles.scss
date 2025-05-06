@@ -573,16 +573,18 @@ footer{
     
 }
 
-
 .competences-info {
-    padding: 50px 0;
+    padding: 5rem 0;
+    background-color: #fff;
+
     h2 {
         color: $color-primary;
+        margin-bottom: 1rem;
     }
 
     p {
         font-size: 1.1rem;
-        margin-bottom: 20px;
+        margin-bottom: 1.5rem;
     }
 
     .btn-custom {
@@ -594,10 +596,20 @@ footer{
         text-decoration: none;
         border-radius: 5px;
         transition: background 0.3s ease-in-out;
+        margin-right: 10px;
+        margin-bottom: 10px;
 
         &:hover {
             background-color: darken($color-primary, 10%);
-            color: $color-tertiary
+            color: $color-tertiary;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .btn-custom {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
         }
     }
 }
@@ -898,7 +910,8 @@ footer{
 
 .parcours-scolaire{
     width: 100%;
-    max-height: 100vh;
+    padding-top:4rem ;
+    padding-bottom: 4rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -978,6 +991,19 @@ footer{
 
 
 }
+
+@media (max-width: 768px) {
+    .parcours-scolaire {
+        padding-top: 6rem;
+        padding-bottom: 6rem;
+
+        .timeline-item {
+            margin-bottom: 2.5rem;
+            padding: 1.5rem;
+        }
+    }
+}
+
 
 #contact{
     width: 100%;
