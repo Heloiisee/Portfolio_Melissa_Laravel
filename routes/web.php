@@ -12,16 +12,6 @@ use App\Http\Controllers\Admin\EducationController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-
-Route::get('/test', function () {
-    return 'OK';
-});
-
-Route::get('/test-db', function () {
-    return \App\Models\Project::take(1)->get();
-});
-
-
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/projets', [ProjectController::class, 'showProjects'])->name('projects.index');
 Route::get('/projets/{id}', [ProjectController::class, 'show'])->name('projects.show');

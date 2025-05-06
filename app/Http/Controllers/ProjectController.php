@@ -46,6 +46,12 @@ class ProjectController extends Controller
             'url' => 'nullable|url',
         ]);
 
+        // Si une image est uploadée
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('images', 'public');
+            $validatedData['image'] = $path; // Stocke 'images/nom_image.jpg'
+    }
+
         Project::create($validatedData);
 
         return redirect()->route('projects.index')->with('success', 'Projet créé avec succès.');
@@ -61,5 +67,34 @@ class ProjectController extends Controller
     
     return redirect()->route('projects.index')->with('success', 'Projet supprimé.');
 }
+
+public function update(Request $request, Project $project)
+{
+    $validatedData = $request->validate([
+        'titre' => 'required|string|max:255',
+        'description' => 'required|string',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'technologies' => 'nullable|string|max:255',
+        'url' => 'nullable|url',
+    ]);
+
+    // Si une nouvelle image est uploadée
+    if ($request->hasFile('image')) {
+        // Supprime l'ancienne image si elle existe
+        if ($project->image && Storage::disk('public')->exists($project->image)) {
+            Storage::disk('public')->delete($project->image);
+        }
+
+        // Stocke la nouvelle image
+        $path = $request->file('image')->store('images', 'public');
+        $validatedData['image'] = $path;
+    }
+
+    // Mise à jour du projet
+    $project->update($validatedData);
+
+    return redirect()->route('projects.index')->with('success', 'Projet mis à jour avec succès.');
+}
+
 
 }
