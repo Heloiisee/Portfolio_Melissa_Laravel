@@ -86,7 +86,7 @@
                     <a href="{{ asset('pdf/CV_2025-04-29_Melissa_Guicheron-2.pdf') }}" class="btn btn-custom" target="_blank">Mon CV</a>
                     <a href="{{ asset('pdf/tableau_de_synthèse_v2.pdf') }}" class="btn btn-custom" target="_blank">Tableau de synthèse</a>
                     <a href="{{ asset('pdf/Attestation_de_stage.pdf') }}" class="btn btn-custom" target="_blank">Attestation du stage 1</a>
-                    <a href="{{ asset('pdf/Attestation_de_stage_2.pdf') }}" class="btn btn-custom" target="_blank">Attestation du stage 2</a>
+                    <a href="{{ asset('pdf/Attestation_de_stage_2.pdf') }}" class="btn btn-custom" target="">Attestation du stage 2</a>
                 </div>
             </div>
         </div>
@@ -106,12 +106,21 @@
                     @else
                         <i class="fas fa-certificate certifications-icon mb-3"></i>
                     @endif
+
                     <h2 class="h5">{{ $certification->nom }}</h2>
+
+                    {{-- Lien vers le PDF s’il existe --}}
+                    @if ($certification->pdf)
+                        <a href="{{ asset($certification->pdf) }}" target="_blank" class="d-block mt-2 text-decoration-underline text-primary" style="font-size: 0.9rem;">
+                            Voir le certificat
+                        </a>
+                    @endif
                 </div>
             @endforeach
         </div>
     </div>
 </section>
+
 
 <section class="parcours-scolaire bg-light reveal">
     <div class="container">

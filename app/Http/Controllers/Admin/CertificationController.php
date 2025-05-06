@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Certification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CertificationController extends Controller
 {
@@ -42,11 +43,17 @@ class CertificationController extends Controller
         $request->validate([
             'nom' => 'required|string|max:255',
             'icon' => 'nullable|string|max:255',
+            'pdf' => 'nullable|mimes:pdf|max:5000',
         ]);
+
+        $pdfPath = $request->hasFile('pdf')
+            ? $request->file('pdf')->store('certifications', 'public')
+            : null;
 
         Certification::create([
             'nom' => $request->nom,
             'icon' => $request->icon,
+            'pdf' => $pdfPath,
         ]);
 
         return redirect()->route('admin.certifications.index')->with('success', 'Certification ajoutée avec succès !');
@@ -78,13 +85,23 @@ class CertificationController extends Controller
         $request->validate([
             'nom' => 'required|string|max:255',
             'icon' => 'nullable|string|max:255',
+            'pdf' => 'nullable|mimes:pdf|max:5000',
         ]);
 
         $certification = Certification::findOrFail($id);
-        $certification->update([
-            'nom' => $request->nom,
-            'icon' => $request->icon,
-        ]);
+
+        // Suppression de l'ancien fichier si un nouveau est uploadé
+        if ($request->hasFile('pdf')) {
+            if ($certification->pdf && Storage::disk('public')->exists($certification->pdf)) {
+                Storage::disk('public')->delete($certification->pdf);
+            }
+
+            $certification->pdf = $request->file('pdf')->store('certifications', 'public');
+        }
+
+        $certification->nom = $request->nom;
+        $certification->icon = $request->icon;
+        $certification->save();
 
         return redirect()->route('admin.certifications.index')->with('success', 'Certification mise à jour avec succès.');
     }
@@ -95,6 +112,12 @@ class CertificationController extends Controller
     public function destroy(string $id)
     {
         $certification = Certification::findOrFail($id);
+
+        // Supprimer aussi le PDF du stockage
+        if ($certification->pdf && Storage::disk('public')->exists($certification->pdf)) {
+            Storage::disk('public')->delete($certification->pdf);
+        }
+
         $certification->delete();
 
         return redirect()->route('admin.certifications.index')->with('success', 'Certification supprimée avec succès.');

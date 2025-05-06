@@ -26,6 +26,7 @@
                         <tr>
                             <th class="px-4 py-2 border">Icône</th>
                             <th class="px-4 py-2 border">Nom</th>
+                            <th class="px-4 py-2 border">Fichier</th> {{-- Nouvelle colonne --}}
                             <th class="px-4 py-2 border">Actions</th>
                         </tr>
                     </thead>
@@ -40,6 +41,16 @@
                                     @endif
                                 </td>
                                 <td class="px-4 py-2 text-white">{{ $certification->nom }}</td>
+
+                                {{-- Affichage du lien vers le PDF s’il existe --}}
+                                <td class="px-4 py-2 text-sm">
+                                    @if($certification->pdf)
+                                        <a href="{{ asset($certification->pdf) }}" target="_blank" class="text-blue-400 hover:underline">Voir PDF</a>
+                                    @else
+                                        <span class="text-gray-400 italic">Aucun</span>
+                                    @endif
+                                </td>
+
                                 <td class="px-4 py-2 space-x-2">
                                     <a href="{{ route('admin.certifications.edit', $certification->id) }}" class="text-yellow-400 hover:underline">Modifier</a>
                                     <form action="{{ route('admin.certifications.destroy', $certification->id) }}" method="POST" class="inline-block" onsubmit="return confirm('Supprimer cette certification ?')">
@@ -50,7 +61,6 @@
                                 </td>
                             </tr>
                         @endforeach
-
                         @if ($certifications->isEmpty())
                             <tr>
                                 <td colspan="3" class="text-center py-4 text-gray-400">Aucune certification trouvée.</td>
