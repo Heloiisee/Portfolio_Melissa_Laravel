@@ -4,7 +4,7 @@
                 <div class="col-md-6 reveal-1">
                     <h3><strong>Réseaux sociaux</strong></h3>
                     <ul class="list-unstyled">
-                        <li><a href="https://www.linkedin.com/in/melissa-guicheron-6a6201290/">LinkedIn</a></li>
+                        <li><a href="https://www.linkedin.com/in/melissa-guicheron-6a6201290/" target="_blank">LinkedIn</a></li>
                     </ul>
                 </div>
                 <div class="col-md-6 reveal-2">

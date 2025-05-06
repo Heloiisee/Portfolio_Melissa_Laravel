@@ -14,17 +14,6 @@
                 </div>
             </div>
         </section>
-        <section class="intro_veille reveal">
-            <div class="container">
-                <div class="row">
-                    <h1 class="display-5 fw-bold text-center reveal-3">Une petite presentation</h1>
-                    <hr class="w-25 mx-auto my-3 border-2">
-                    <h4 class="text-center fw-bold reveal-3">Qu'est-ce qu'une veille technologiques ?</h6>
-                    <p class="reveal-4">La veille technologique est une pratique essentielle pour rester informé des dernières innovations et tendances dans mon domaine. 
-                    Elle me permet d'améliorer mes compétences et d'intégrer des outils modernes dans mes projets.</p>
-                </div>
-            </div>
-        </section>
         <section class="objectifs_veille reveal">
             <div class="container py-5 reveal-1">
                 <div class="row justify-content-center text-center">
