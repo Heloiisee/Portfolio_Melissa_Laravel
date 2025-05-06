@@ -70,7 +70,7 @@ if ($project->image) {
 
 $project->delete();
 
-return redirect()->route('admin.projets.index')->with('success', 'Projet supprimé.');
+return redirect()->route('admin.index')->with('success', 'Projet supprimé.');
 }
 
 public function show(Project $project)
