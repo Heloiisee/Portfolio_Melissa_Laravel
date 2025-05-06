@@ -32,7 +32,7 @@
         </div>
     </section>  
     
-    <section class="competences reveal">
+    <section class="competences reveal py-5 reveal">
         <div class="container reveal-1">
             <h1 class="display-5 fw-bold text-center reveal-1">Compétences</h1>
             <hr class="w-25 mx-auto my-3 border-2">
@@ -51,7 +51,9 @@
                 </div>
             </div>
         </div>
-        <section class="competences-techniques">
+    </section>
+
+    <section class="competences-techniques py-5 reveal">
         <div class="container">
             <h2 class="text-start fw-bold">Compétences techniques</h2>
         <hr class="w-25 my-3 border-2">
@@ -72,7 +74,7 @@
         </div>
     </section> 
 
-    <section class="competences-info py-5 ">
+    <section class="competences-info py-5 reveal">
     <div class="container">
         <div class="row">
             <div class="col-12 col-md-10 offset-md-1 text-start">
@@ -91,7 +93,7 @@
     </div>
 </section>
 
-</section>
+
 <section class="certifications py-5 reveal">
     <div class="container">
         <h1 class="display-5 fw-bold text-center text-primary reveal-1">Certifications</h1>
