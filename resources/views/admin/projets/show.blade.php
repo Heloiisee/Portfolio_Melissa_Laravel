@@ -33,23 +33,26 @@
 
                     <div>
                         <h3 class="text-lg font-semibold">Image du projet</h3>
-                        @if($project->image)
-                            <img src="{{ asset('storage/' . $project->image) }}" alt="Image du projet" class="mt-2 rounded shadow w-full max-w-xs">
+                        @if($project->image && file_exists(public_path('storage/' . $project->image)))
+                            <img src="{{ asset('storage/' . $project->image) }}" alt="Image du projet {{ $project->titre }}" class="mt-2 rounded shadow w-full max-w-xs">
                         @else
                             <p class="italic text-sm">Aucune image disponible</p>
                         @endif
+
                     </div>
 
                     <div>
                         <h3 class="text-lg font-semibold">Lien / PDF</h3>
-                        @if(Str::endsWith($project->url, '.pdfs'))
-                            <a href="{{ asset($project->url) }}" target="_blank" class="text-blue-500 underline">
-                                Ouvrir le PDF
-                            </a>
-                        @elseif($project->url)
-                            <a href="{{ $project->url }}" target="_blank" class="text-blue-500 underline">
-                                Voir le site
-                            </a>
+                        @if($project->url)
+                            @if(Str::endsWith($project->url, '.pdf'))
+                                <a href="{{ asset($project->url) }}" target="_blank" class="text-blue-500 underline">
+                                    Ouvrir le PDF
+                                </a>
+                            @else
+                                <a href="{{ $project->url }}" target="_blank" class="text-blue-500 underline">
+                                    Voir le site
+                                </a>
+                            @endif
                         @else
                             <p class="italic text-sm">Aucun lien fourni</p>
                         @endif
