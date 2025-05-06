@@ -10,17 +10,20 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up()
-    {
+{
+    if (!Schema::hasTable('educations')) {
         Schema::create('educations', function (Blueprint $table) {
             $table->id();
-            $table->string('titre'); // Ex : "Licence Informatique"
-            $table->string('etablissement'); // Ex : "Université de Nantes"
+            $table->string('titre');
+            $table->string('etablissement');
             $table->date('date_debut');
-            $table->date('date_fin')->nullable(); // si encore en cours
+            $table->date('date_fin')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
         });
     }
+}
+
 
     /**
      * Reverse the migrations.
