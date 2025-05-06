@@ -42,7 +42,7 @@
 
                     <div>
                         <h3 class="text-lg font-semibold">Lien / PDF</h3>
-                        @if(Str::endsWith($project->url, '.pdf'))
+                        @if(Str::endsWith($project->url, '.pdfs'))
                             <a href="{{ asset($project->url) }}" target="_blank" class="text-blue-500 underline">
                                 Ouvrir le PDF
                             </a>

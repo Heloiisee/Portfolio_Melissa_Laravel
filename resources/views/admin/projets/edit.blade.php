@@ -37,7 +37,7 @@
 
                     <div class="mb-4">
                         <label for="pdf" class="block font-medium text-sm text-gray-700 dark:text-gray-200">Fichier PDF (optionnel)</label>
-                        <input type="file" name="pdf" id="pdf" class="form-input mt-1 block w-full">
+                        <input type="file" name="pdfs" id="pdfs" class="form-input mt-1 block w-full">
                     </div>
 
                     <div class="mb-4">
