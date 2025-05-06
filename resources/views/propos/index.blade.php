@@ -96,7 +96,7 @@
 
 <section class="certifications py-5 reveal">
     <div class="container">
-        <h1 class="display-5 fw-bold text-center text-primary reveal-1">Certifications</h1>
+        <h1 class="display-5 fw-bold text-center reveal-1">Certifications</h1>
         <hr class="w-25 border-2 mx-auto reveal-2 mb-5">
         <div class="row justify-content-center text-center reveal-3">
             @foreach($certifications as $certification)
@@ -106,7 +106,7 @@
                     @else
                         <i class="fas fa-certificate certifications-icon mb-3"></i>
                     @endif
-                    <h2 class="h5 text-white">{{ $certification->nom }}</h2>
+                    <h2 class="h5">{{ $certification->nom }}</h2>
                 </div>
             @endforeach
         </div>
