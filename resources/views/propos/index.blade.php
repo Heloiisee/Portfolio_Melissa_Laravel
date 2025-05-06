@@ -83,10 +83,10 @@
                 <p>Vous souhaitez en savoir plus sur mes compétences et mes réalisations ?</p>
                 
                 <div class="d-flex flex-wrap gap-2 mt-3">
-                    <a href="{{ asset('pdf/CV_2025-04-29_Melissa_Guicheron-2.pdf') }}" class="btn btn-custom">Mon CV</a>
-                    <a href="{{ asset('pdf/tableau_de_synthèse_v2.pdf') }}" class="btn btn-custom">Tableau de synthèse</a>
-                    <a href="{{ asset('pdf/Attestation_de_stage.pdf') }}" class="btn btn-custom">Attestation du stage 1</a>
-                    <a href="{{ asset('pdf/Attestation_de_stage_2.pdf') }}" class="btn btn-custom">Attestation du stage 2</a>
+                    <a href="{{ asset('pdf/CV_2025-04-29_Melissa_Guicheron-2.pdf') }}" class="btn btn-custom" target="_blank">Mon CV</a>
+                    <a href="{{ asset('pdf/tableau_de_synthèse_v2.pdf') }}" class="btn btn-custom" target="_blank">Tableau de synthèse</a>
+                    <a href="{{ asset('pdf/Attestation_de_stage.pdf') }}" class="btn btn-custom" target="_blank">Attestation du stage 1</a>
+                    <a href="{{ asset('pdf/Attestation_de_stage_2.pdf') }}" class="btn btn-custom" target="_blank">Attestation du stage 2</a>
                 </div>
             </div>
         </div>
