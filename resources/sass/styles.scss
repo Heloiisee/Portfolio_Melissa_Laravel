@@ -618,16 +618,37 @@ footer{
 
 
 .certifications {
-    min-height: 100vh;
+    padding: 5rem 0;
     background-color: $color-secondary;
-    
 
     h1 {
         color: $color-primary;
         margin-bottom: 1.5rem;
     }
 
+    .certifications-icon {
+        font-size: 3rem;
+        color: $color-primary;
+        margin-bottom: 1rem;
+    }
+
+    h2 {
+        color: #ffffff;
+        font-size: 1.25rem;
+        font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+        .certifications-icon {
+            font-size: 2.5rem;
+        }
+
+        h2 {
+            font-size: 1rem;
+        }
+    }
 }
+
 
 // Page Veilles
 

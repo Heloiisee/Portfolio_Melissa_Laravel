@@ -92,24 +92,25 @@
 </section>
 
 </section>
-<section class="certifications reveal">
+<section class="certifications py-5 reveal">
     <div class="container">
-        <h1 class="display-5 fw-bold text-center reveal-1 text">Certifications</h1>
-        <hr class="w-25 border-2 mx-auto reveal-2">
-        <div class="row justify-content-center text-center gap-6 reveal-3 py-5 text-white">
+        <h1 class="display-5 fw-bold text-center text-primary reveal-1">Certifications</h1>
+        <hr class="w-25 border-2 mx-auto reveal-2 mb-5">
+        <div class="row justify-content-center text-center reveal-3">
             @foreach($certifications as $certification)
-                <div class="col-md-4 mb-4">
+                <div class="col-12 col-sm-6 col-md-4 mb-4">
                     @if ($certification->icon)
-                        <i class="{{ $certification->icon }} certifications-icon"></i>
+                        <i class="{{ $certification->icon }} certifications-icon mb-3"></i>
                     @else
-                        <i class="fas fa-certificate certifications-icon"></i>
+                        <i class="fas fa-certificate certifications-icon mb-3"></i>
                     @endif
-                    <h2>{{ $certification->nom }}</h2>
+                    <h2 class="h5 text-white">{{ $certification->nom }}</h2>
                 </div>
             @endforeach
         </div>
     </div>
 </section>
+
 <section class="parcours-scolaire bg-light reveal">
     <div class="container">
         <h2 class="text-center text-2xl fw-bold mb-4 reveal-1">Parcours scolaire</h2>
