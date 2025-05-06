@@ -91,7 +91,7 @@ public function update(Request $request, Project $project)
         'technologies' => 'nullable|string|max:255',
         'url' => 'nullable|url',
         'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        'pdf' => 'nullable|mimes:pdf|max:2048',
+        'pdf' => 'nullable|mimes:pdf|max:5120',
     ]);
 
     // Traitement de l'image si elle est envoyée
