@@ -37,67 +37,82 @@ $btn-hover-scale: 1.05;
 body{
     background-color: $color-secondary;
 }
-
-// Navbar
-#header {
-    .navbar-brand {
-        font-size: $font-size-medium;
-        font-weight: 600;
-        color: $color-primary;
-    }
-
-    .nav-item {
-        position: relative;
-
-        &::after {
-            content: "";
-            position: absolute;
-            left: 50%;
-            bottom: 0;
-            width: 0;
-            height: 3px;
-            background-color: $color-primary;
-            transition: all 0.3s ease-in-out;
-            transform: translateX(-50%);
-        }
-
-        &:hover::after {
-            width: 100%;
-        }
-
-        .nav-link {
-            font-size: $font-size-tiny;
-            font-weight: 500;
+    #header {
+        background-color: $color-tertiary;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    
+        .navbar {
+        padding: 0;
+    
+        .navbar-brand {
+            font-size: 1.5rem;
             color: $color-primary;
-            transition: color 0.3s ease-in-out;
-
+            transition: color 0.3s ease;
+    
             &:hover {
-                color: darken($color-primary, 10%);
+            color: darken($color-primary, 10%);
             }
         }
-
-        &.active .nav-link {
-            font-weight: bold;
+    
+        .nav-link {
             color: $color-primary;
+            font-size: 1rem;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+    
+            &::after {
+            content: "";
+            display: block;
+            width: 0;
+            height: 2px;
+            background: $color-primary;
+            transition: width 0.3s;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            }
+    
+            &:hover::after,
+            &.active::after {
+            width: 100%;
+            }
+    
+            &:hover {
+            color: darken($color-primary, 10%);
+            }
+    
+            &.active {
+            font-weight: 600;
+            }
         }
-    }
-
-    .navbar-toggler {
-        border: none;
-
-        &:focus {
+    
+        .navbar-toggler {
+            border: none;
+    
+            &:focus {
             outline: none;
             box-shadow: none;
+            }
+    
+            .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(18, 52, 86, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+            }
+        }
+    
+        .navbar-nav {
+            gap: 1rem;
+    
+            @media (max-width: 992px) {
+            flex-direction: column;
+            gap: 0.5rem;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            }
+        }
         }
     }
-
-    // Responsive : centrer le menu sur mobile
-    .navbar-nav {
-        @media (max-width: 992px) {
-            text-align: center;
-        }
-    }
-}
+    
 
 // Section Heading
 .heading{

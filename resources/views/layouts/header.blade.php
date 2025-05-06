@@ -1,35 +1,32 @@
-<div class="container-fluid" id="header">
-    <div class="row">
+<header id="header" class="py-3 shadow-sm bg-white sticky-top">
+    <div class="container">
         <nav class="navbar navbar-expand-lg">
-            <div class="container-fluid">
-                <a class="navbar-brand fw-bold" href="{{ url('/') }}">Melissa.</a>
+            <a class="navbar-brand fw-bold text-uppercase" href="{{ url('/') }}">Melissa.</a>
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
-                    <ul class="navbar-nav mx-auto d-flex flex-row gap-3">
-                        <li class="nav-item">
-                            <a class="nav-link fw-medium" href="{{route('home') }}">Accueil</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link fw-medium" href="{{ route('projects.index') }}">Projets</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link fw-medium" href="{{ route('veilles.index') }}">Veilles</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link fw-medium" href="{{ route('propos.index') }}">Propos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link fw-medium" href="{{ route('contact') }}">Contact</a>
-                        </li>
-                    </ul>
-
-                </div>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto d-flex align-items-center gap-lg-4 gap-2 text-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('home') }}">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('projects.index') }}">Projets</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('veilles.index') }}">Veilles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('propos.index') }}">Propos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('contact') }}">Contact</a>
+                    </li>
+                </ul>
             </div>
         </nav>
     </div>
-</div>
+</header>
