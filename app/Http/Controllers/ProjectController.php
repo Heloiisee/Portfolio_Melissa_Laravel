@@ -35,28 +35,6 @@ class ProjectController extends Controller
         return view('admin.projects.create');
     }
 
-    public function store(Request $request)
-    {
-        // Logique pour enregistrer un nouveau projet
-        $validatedData = $request->validate([
-            'titre' => 'required|string|max:255',
-            'description' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'technologies' => 'nullable|string|max:255',
-            'url' => 'nullable|url',
-        ]);
-
-        // Si une image est uploadée
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('images', 'public');
-            $validatedData['image'] = $path; // Stocke 'images/nom_image.jpg'
-    }
-
-        Project::create($validatedData);
-
-        return redirect()->route('projects.index')->with('success', 'Projet créé avec succès.');
-    }
-
     public function destroy(Project $project)
 {
     if ($project->image) {

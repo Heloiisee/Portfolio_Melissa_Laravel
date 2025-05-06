@@ -31,34 +31,37 @@ public function create()
     // Logique pour afficher le formulaire de création d'un projet
     return view('admin.projets.create');
 }
-
 public function store(Request $request)
 {
-    $validatedData = $request->validate([
+    $request->validate([
         'titre' => 'required|string|max:255',
-        'description' => 'required|string',
-        'technologies' => 'nullable|string|max:255',
+        'description' => 'nullable|string',
+        'technologies' => 'nullable|string',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'pdf' => 'nullable|mimes:pdf|max:5000',
         'url' => 'nullable|url',
-        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        'pdf' => 'nullable|mimes:pdf|max:2048',
     ]);
 
-    // Traitement de l'image
+    $project = new Project();
+    $project->titre = $request->titre;
+    $project->description = $request->description;
+    $project->technologies = $request->technologies;
+
     if ($request->hasFile('image')) {
-        $imagePath = $request->file('image')->store('images', 'public');
-        $validatedData['image'] = $imagePath;
+        $project->image = $request->file('image')->store('images', 'public');
     }
 
-    // Traitement du PDF
     if ($request->hasFile('pdf')) {
-        $pdfPath = $request->file('pdf')->store('pdfs', 'public');
-        $validatedData['url'] = 'storage/' . $pdfPath; // Stocke le lien vers le PDF comme "url"
+        $project->url = 'storage/' . $request->file('pdf')->store('pdfs', 'public');
+    } else {
+        $project->url = $request->url; // Si l'utilisateur met un lien
     }
 
-    Project::create($validatedData);
+    $project->save();
 
     return redirect()->route('admin.index')->with('success', 'Projet ajouté avec succès.');
 }
+
 
 
 
@@ -82,41 +85,35 @@ public function edit(Project $project)
 {
     return view('admin.projets.edit', compact('project'));
 }
+
 public function update(Request $request, Project $project)
 {
-    // Validation des données
-    $validatedData = $request->validate([
+    $request->validate([
         'titre' => 'required|string|max:255',
-        'description' => 'required|string',
-        'technologies' => 'nullable|string|max:255',
+        'description' => 'nullable|string',
+        'technologies' => 'nullable|string',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'pdf' => 'nullable|mimes:pdf|max:5000',
         'url' => 'nullable|url',
-        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        'pdf' => 'nullable|mimes:pdf|max:5120',
     ]);
 
-    // Traitement de l'image si elle est envoyée
+    $project->titre = $request->titre;
+    $project->description = $request->description;
+    $project->technologies = $request->technologies;
+
     if ($request->hasFile('image')) {
-        // Supprimer l'ancienne image si elle existe
-        if ($project->image) {
-            Storage::delete('public/' . $project->image);
-        }
-        // Sauvegarder la nouvelle image
-        $imagePath = $request->file('image')->store('images', 'public');
-        $validatedData['image'] = $imagePath;
+        $project->image = $request->file('image')->store('images', 'public');
     }
 
-    // Traitement du PDF si il est envoyé
     if ($request->hasFile('pdf')) {
-        // Sauvegarder le PDF
-        $pdfPath = $request->file('pdf')->store('pdfs', 'public');
-        $validatedData['url'] = 'storage/' . $pdfPath; // Stocker le lien du PDF dans l'URL
+        $project->url = 'storage/' . $request->file('pdf')->store('pdfs', 'public');
+    } elseif ($request->url) {
+        $project->url = $request->url;
     }
 
-    // Mettre à jour le projet
-    $project->update($validatedData);
+    $project->save();
 
-    // Retourner à la page avec un message flash
-    return redirect()->route('admin.index')->with('success', 'Le projet a été modifié avec succès.');
+    return redirect()->route('admin.index')->with('success', 'Projet mis à jour.');
 }
 
 
