@@ -8,7 +8,9 @@
     <div class="py-12">
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-6">
-                <a href="{{ route('admin.index') }}" class="text-blue-600 hover:underline mb-6 inline-block">← Retour à l'accueil admin</a>
+                <a href="{{ route('admin.index') }}" class="text-blue-600 hover:underline mb-6 inline-block">
+                    ← Retour à l'accueil admin
+                </a>
 
                 <form action="{{ route('admin.projets.update', $project->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
@@ -16,39 +18,51 @@
 
                     {{-- TITRE --}}
                     <div class="mb-4">
-                        <x-label for="titre" :value="'Titre'" />
-                        <x-input id="titre" class="block mt-1 w-full" type="text" name="titre" value="{{ old('titre', $project->titre) }}" required />
+                        <label for="titre" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Titre</label>
+                        <input type="text" name="titre" id="titre"
+                            value="{{ old('titre', $project->titre) }}"
+                            required
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
                     </div>
 
                     {{-- DESCRIPTION --}}
                     <div class="mb-4">
-                        <x-label for="description" :value="'Description'" />
-                        <textarea id="description" name="description" rows="4" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white">{{ old('description', $project->description) }}</textarea>
+                        <label for="description" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Description</label>
+                        <textarea name="description" id="description" rows="4"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white">{{ old('description', $project->description) }}</textarea>
                     </div>
 
                     {{-- TECHNOLOGIES --}}
                     <div class="mb-4">
-                        <x-label for="technologies" :value="'Technologies'" />
-                        <x-input id="technologies" class="block mt-1 w-full" type="text" name="technologies" value="{{ old('technologies', $project->technologies) }}" />
+                        <label for="technologies" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Technologies</label>
+                        <input type="text" name="technologies" id="technologies"
+                            value="{{ old('technologies', $project->technologies) }}"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
                     </div>
 
-                    {{-- LIEN (URL OU PDF) --}}
+                    {{-- LIEN URL --}}
                     <div class="mb-4">
-                        <x-label for="url" :value="'Lien externe (URL ou PDF)'" />
-                        <x-input id="url" class="block mt-1 w-full" type="text" name="url" value="{{ old('url', $project->url) }}" />
+                        <label for="url" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Lien externe (URL ou PDF)</label>
+                        <input type="text" name="url" id="url"
+                            value="{{ old('url', $project->url) }}"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
                         <small class="text-gray-500 dark:text-gray-300">Collez un lien ici ou ajoutez un PDF ci-dessous</small>
                     </div>
 
-                    {{-- UPLOAD PDF --}}
+                    {{-- PDF --}}
                     <div class="mb-4">
-                        <x-label for="pdf" :value="'Fichier PDF (optionnel)'" />
-                        <input type="file" name="pdf" id="pdf" accept="application/pdf" class="block mt-1 w-full text-sm text-gray-700 dark:text-white" />
+                        <label for="pdf" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Fichier PDF (optionnel)</label>
+                        <input type="file" name="pdf" id="pdf"
+                            accept="application/pdf"
+                            class="mt-1 block w-full text-sm text-gray-700 dark:text-white" />
                     </div>
 
                     {{-- IMAGE --}}
                     <div class="mb-6">
-                        <x-label for="image" :value="'Image du projet'" />
-                        <input type="file" name="image" id="image" accept="image/*" class="block mt-1 w-full text-sm text-gray-700 dark:text-white" />
+                        <label for="image" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Image du projet</label>
+                        <input type="file" name="image" id="image"
+                            accept="image/*"
+                            class="mt-1 block w-full text-sm text-gray-700 dark:text-white" />
                         
                         @if($project->image)
                             <img src="{{ asset('storage/' . $project->image) }}" alt="Image actuelle" class="mt-3 rounded shadow w-32">
@@ -57,9 +71,10 @@
 
                     {{-- SUBMIT --}}
                     <div class="flex justify-end">
-                        <x-button class="bg-blue-600 hover:bg-blue-700">
-                            {{ __('Mettre à jour le projet') }}
-                        </x-button>
+                        <button type="submit"
+                            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
+                            Mettre à jour le projet
+                        </button>
                     </div>
                 </form>
             </div>
