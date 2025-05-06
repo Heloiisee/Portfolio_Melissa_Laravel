@@ -1,23 +1,27 @@
-# ===============================
-# Étape 1 : Builder les assets avec Vite
-# ===============================
+# ============================================
+# Étape 1 : Build des assets Vite (JS, SASS, Tailwind)
+# ============================================
 FROM node:18-alpine AS vite-builder
 
 WORKDIR /app
 
-COPY package*.json vite.config.* ./
+# Copie des fichiers nécessaires au build front
+COPY package*.json vite.config.* tailwind.config.js postcss.config.js ./
 RUN npm install
 
 COPY resources ./resources
 COPY public ./public
+
+# Compilation des assets (JS, CSS, Tailwind, SASS, etc.)
 RUN npm run build
 
-# ===============================
-# Étape 2 : Image PHP/Laravel
-# ===============================
+
+# ============================================
+# Étape 2 : PHP / Laravel backend
+# ============================================
 FROM php:8.2-fpm-alpine
 
-# Dépendances nécessaires
+# Installation des dépendances système
 RUN apk add --no-cache \
     libpng-dev \
     libjpeg-turbo-dev \
@@ -32,29 +36,30 @@ RUN apk add --no-cache \
     git \
     unzip \
     bash \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install pdo pdo_pgsql zip intl opcache gd
+ && docker-php-ext-configure gd --with-freetype --with-jpeg \
+ && docker-php-ext-install pdo pdo_pgsql zip intl opcache gd
 
-# Installer Composer
+# Installation de Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
+# Définir le répertoire de travail Laravel
 WORKDIR /var/www
 
-# Copier les fichiers
+# Copier tous les fichiers de l'application Laravel
 COPY . .
 
-# Installer les dépendances PHP sans scripts
+# Installer les dépendances PHP de production
 RUN composer install --no-dev --optimize-autoloader --no-scripts
 
-# Copier les assets Vite
+# Copier les assets Vite compilés dans public/build
 COPY --from=vite-builder /app/public/build ./public/build
 
-# Permissions recommandées
+# Droits et permissions
 RUN chown -R www-data:www-data /var/www \
-    && chmod -R 755 storage bootstrap/cache
+ && chmod -R 755 storage bootstrap/cache
 
-# Exposer le port (utilisé par Laravel)
+# Exposer le port utilisé par Laravel
 EXPOSE 8080
 
-# Lancer Laravel
+# Commande de lancement
 CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8080"]
