@@ -5,98 +5,83 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Certification;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class CertificationController extends Controller
 {
-    /**
-     * Affiche la liste côté public.
-     */
     public function index()
     {
         $certifications = Certification::all();
         return view('certifications.index', compact('certifications'));
     }
 
-    /**
-     * Affiche la liste côté admin.
-     */
     public function indexAdmin()
     {
         $certifications = Certification::all();
         return view('admin.certifications.index', compact('certifications'));
     }
 
-    /**
-     * Affiche le formulaire de création.
-     */
     public function create()
     {
         return view('admin.certifications.create');
     }
 
-    /**
-     * Enregistre une nouvelle certification.
-     */
     public function store(Request $request)
     {
         $request->validate([
             'nom' => 'required|string|max:255',
             'icon' => 'nullable|string|max:255',
-            'pdf' => 'nullable|mimes:pdf|max:5000',
+            'pdf' => 'nullable|file|mimes:pdf|max:5000',
         ]);
 
-        $pdfPath = $request->hasFile('pdf')
-            ? $request->file('pdf')->store('pdfs', 'public')
-            : null;
+        $uploadedPdf = null;
+
+        if ($request->hasFile('pdf')) {
+            $uploadedPdf = Cloudinary::uploadFile(
+                $request->file('pdf')->getRealPath(),
+                ['folder' => 'certifications', 'resource_type' => 'raw']
+            )->getSecurePath();
+        }
 
         Certification::create([
             'nom' => $request->nom,
             'icon' => $request->icon,
-            'pdf' => $pdfPath,
+            'pdf' => $uploadedPdf,
         ]);
 
         return redirect()->route('admin.certifications.index')->with('success', 'Certification ajoutée avec succès !');
     }
 
-    /**
-     * Affiche une certification spécifique.
-     */
     public function show(string $id)
     {
         $certification = Certification::findOrFail($id);
         return view('admin.certifications.show', compact('certification'));
     }
 
-    /**
-     * Affiche le formulaire d’édition.
-     */
     public function edit(string $id)
     {
         $certification = Certification::findOrFail($id);
         return view('admin.certifications.edit', compact('certification'));
     }
 
-    /**
-     * Met à jour une certification.
-     */
     public function update(Request $request, string $id)
     {
         $request->validate([
             'nom' => 'required|string|max:255',
             'icon' => 'nullable|string|max:255',
-            'pdf' => 'nullable|mimes:pdf|max:5000',
+            'pdf' => 'nullable|file|mimes:pdf|max:5000',
         ]);
 
         $certification = Certification::findOrFail($id);
 
-        // Suppression de l'ancien fichier si un nouveau est uploadé
         if ($request->hasFile('pdf')) {
-            if ($certification->pdf && Storage::disk('public')->exists($certification->pdf)) {
-                Storage::disk('public')->delete($certification->pdf);
-            }
+            // Upload vers Cloudinary
+            $newPdf = Cloudinary::uploadFile(
+                $request->file('pdf')->getRealPath(),
+                ['folder' => 'certifications', 'resource_type' => 'raw']
+            )->getSecurePath();
 
-            $certification->pdf = $request->file('pdf')->store('pdfs', 'public');
+            $certification->pdf = $newPdf;
         }
 
         $certification->nom = $request->nom;
@@ -106,17 +91,12 @@ class CertificationController extends Controller
         return redirect()->route('admin.certifications.index')->with('success', 'Certification mise à jour avec succès.');
     }
 
-    /**
-     * Supprime une certification.
-     */
     public function destroy(string $id)
     {
         $certification = Certification::findOrFail($id);
 
-        // Supprimer aussi le PDF du stockage
-        if ($certification->pdf && Storage::disk('public')->exists($certification->pdf)) {
-            Storage::disk('public')->delete($certification->pdf);
-        }
+        // Optionnel : ici tu pourrais supprimer le fichier de Cloudinary
+        // MAIS Cloudinary ne gère pas ça facilement sans avoir stocké le public_id
 
         $certification->delete();
 
