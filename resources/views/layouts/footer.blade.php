@@ -14,7 +14,7 @@
                         <li><a href="{{ route('projects.index') }}">Projets</a></li>
                         <li><a href="{{ route('veilles.index') }}">Veilles</a></li>
                         <li><a href="{{ route('propos.index') }}">Propos</a></li>
-                        <li><a href="{{ route('contact') }}">Contact</a></li>
+                        
                     </ul>
                 </div>
             </div>
