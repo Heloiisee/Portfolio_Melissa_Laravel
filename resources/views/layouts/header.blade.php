@@ -22,9 +22,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('propos.index') }}">Propos</a>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link" href="{{ route('contact') }}">Contact</a>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </nav>

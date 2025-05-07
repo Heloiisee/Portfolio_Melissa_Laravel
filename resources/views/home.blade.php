@@ -140,10 +140,10 @@
             </div>
         </div>
 
-        <p class="mb-4">Ou directement via le formulaire de contact :</p>
-        <a href="{{ route('contact') }}" class="btn btn-contact fw-bold text-white">
-            <i class="fa-solid fa-paper-plane me-2"></i> Envoyer un message
+        <a href="mailto:melissaguicheronml@gmail.com?subject=Contact%20depuis%20le%20site&body=Bonjour,%20je%20vous%20écris%20concernant..." class="btn-mailto">
+            ✉️ Me contacter
         </a>
+
     </div>
 </section>
 
