@@ -47,7 +47,7 @@ class CertificationController extends Controller
         ]);
 
         $pdfPath = $request->hasFile('pdf')
-            ? $request->file('pdf')->store('certifications', 'public')
+            ? $request->file('pdf')->store('pdfs', 'public')
             : null;
 
         Certification::create([
@@ -96,7 +96,7 @@ class CertificationController extends Controller
                 Storage::disk('public')->delete($certification->pdf);
             }
 
-            $certification->pdf = $request->file('pdf')->store('certifications', 'public');
+            $certification->pdf = $request->file('pdf')->store('pdfs', 'public');
         }
 
         $certification->nom = $request->nom;
