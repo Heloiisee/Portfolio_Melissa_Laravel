@@ -75,14 +75,16 @@ class CertificationController extends Controller
         $certification = Certification::findOrFail($id);
 
         if ($request->hasFile('pdf')) {
-            // Upload vers Cloudinary
-            $newPdf = Cloudinary::uploadFile(
+            $uploadResult = Cloudinary::upload(
                 $request->file('pdf')->getRealPath(),
                 ['folder' => 'certifications', 'resource_type' => 'raw']
-            )->getSecurePath();
-
+            );
+        
+            $newPdf = $uploadResult['secure_url'] ?? null;
+        
             $certification->pdf = $newPdf;
         }
+        
 
         $certification->nom = $request->nom;
         $certification->icon = $request->icon;
