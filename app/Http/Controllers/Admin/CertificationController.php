@@ -102,7 +102,7 @@ class CertificationController extends Controller
                 Storage::disk('public')->delete($certification->pdf);
             }
 
-            $certification->pdf = $request->file('pdf')->store('pdfs', 'public');
+            $certification->pdf = $request->file('pdf')->store('pdf', 'public');
         }
 
         $certification->nom = $request->nom;
