@@ -20,7 +20,7 @@ Route::get('/propos',[HomeController::class, 'propos'])->name('propos.index');
 Route::get('/contact', [ContactController::class, 'show'])->name('contact');
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
 Route::view('/', 'mentions-legale')->name('mentions-legale');
-Route::view('/', 'politique-de-confidentialite')->name('politique-de-confidentialite');
+Route::view('/', 'confidentialite')->name('confidentialite');
 
 
 
