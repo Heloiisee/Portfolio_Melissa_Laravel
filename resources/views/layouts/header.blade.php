@@ -11,7 +11,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto d-flex align-items-center gap-lg-4 gap-2 text-center">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('/') }}">Accueil</a>
+                        <a class="nav-link" href="{{ url('/') }}">Accueil</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('projects.index') }}">Projets</a>
