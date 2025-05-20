@@ -21,7 +21,7 @@ RUN npm run build
 # ============================================
 FROM php:8.2-fpm-alpine
 
-# Installation des dépendances système
+# Étape 2.1 : installation des dépendances système
 RUN apk add --no-cache \
     libpng-dev \
     libjpeg-turbo-dev \
@@ -35,31 +35,39 @@ RUN apk add --no-cache \
     curl \
     git \
     unzip \
-    bash \
- && docker-php-ext-configure gd --with-freetype --with-jpeg \
- && docker-php-ext-install pdo pdo_pgsql zip intl opcache gd
+    bash
 
-# Installation de Composer
+# Étape 2.2 : extensions PHP GD & autres
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
+ && docker-php-ext-install \
+    pdo \
+    pdo_pgsql \
+    zip \
+    intl \
+    opcache \
+    gd
+
+# Étape 2.3 : Installer Composer (copie directe depuis l'image composer officielle)
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Définir le répertoire de travail Laravel
+# Étape 2.4 : Définir le répertoire de travail Laravel
 WORKDIR /var/www
 
-# Copier tous les fichiers de l'application Laravel
+# Étape 2.5 : Copier les fichiers de l’application Laravel
 COPY . .
 
-# Installer les dépendances PHP de production
+# Étape 2.6 : Installer les dépendances PHP de prod
 RUN composer install --no-dev --optimize-autoloader --no-scripts
 
-# Copier les assets Vite compilés dans public/build
+# Étape 2.7 : Copier les assets Vite compilés dans public/build
 COPY --from=vite-builder /app/public/build ./public/build
 
-# Droits et permissions
+# Étape 2.8 : Permissions
 RUN chown -R www-data:www-data /var/www \
  && chmod -R 755 storage bootstrap/cache
 
 # Exposer le port utilisé par Laravel
 EXPOSE 8080
 
-# Commande de lancement
+# Démarrer le serveur Laravel
 CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8080"]
