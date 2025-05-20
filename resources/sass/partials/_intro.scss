@@ -1,0 +1,20 @@
+.introduction{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    h1{
+        font-size: $font-size-xlarge;
+        color : $color-primary;
+        margin-bottom: 1.5rem;
+    }
+    hr{
+        color: $color-primary;
+    }
+    p{
+        font-size: $font-size-small;
+        color: $color-primary;
+        margin-bottom: 1.5rem;
+        
+    }
+}

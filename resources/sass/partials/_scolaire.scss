@@ -1,0 +1,59 @@
+
+    // ========== PARCOURS SCOLAIRE ==========
+    .parcours-scolaire {
+    padding: 5rem 0;
+    background-color: $color-secondary;
+    text-align: center;
+
+    h2 {
+        color: $color-primary;
+        margin-bottom: 1.5rem;
+    }
+
+    hr {
+        border-color: $color-primary;
+        margin-bottom: 2rem;
+    }
+
+    .timeline {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px 0;
+
+        .timeline-item {
+        position: relative;
+        margin-bottom: 2rem;
+        padding-left: 30px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+        &:before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            background-color: $color-primary;
+            border-radius: 50%;
+        }
+
+        h4 {
+            font-size: $font-size-medium;
+            color: $color-primary;
+        }
+
+        p {
+            font-size: $font-size-small;
+            color: $color-primary;
+        }
+        }
+    }
+
+    @media (max-width: 768px) {
+        .timeline-item {
+        padding: 1.5rem;
+        }
+    }
+    }

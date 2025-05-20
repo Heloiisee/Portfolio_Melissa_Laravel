@@ -1,0 +1,141 @@
+    // ========== COMPETENCES ==========
+    .competences {
+    padding: 5rem 0;
+    background-color: $color-secondary;
+    text-align: center;
+
+    h1 {
+        color: $color-primary;
+        margin-bottom: 1rem;
+    }
+
+    hr {
+        border-color: $color-primary;
+        margin-bottom: 2rem;
+    }
+
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 2rem;
+    }
+
+    .col-md-4 {
+        background: $color-secondary;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        transition: transform 0.3s ease;
+        max-width: 350px;
+
+        &:hover {
+        transform: translateY(-5px);
+        }
+
+        h2 {
+        font-size: 1.2rem;
+        color: $color-primary;
+        margin-top: 10px;
+        }
+    }
+
+    .competence-icon {
+        font-size: 2.5rem;
+        color: $color-primary;
+    }
+    }
+
+    // ========== COMPETENCES TECHNIQUES ==========
+    .competences-techniques {
+    padding: 5rem 0;
+    background-color: #f8f9fa;
+
+    h2 {
+        color: $color-primary;
+        margin-bottom: 1.5rem;
+    }
+
+    hr {
+        border-color: $color-primary;
+        margin-bottom: 2rem;
+    }
+
+    .skill {
+        margin-bottom: 25px;
+
+        span {
+        font-weight: bold;
+        font-size: 1.2rem;
+        color: $color-primary;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 5px;
+        }
+
+        i {
+        font-size: 1.5rem;
+        color: $color-primary;
+        }
+
+        .progress {
+        width: 100%;
+        max-width: 400px;
+        height: 20px;
+        background-color: #e9ecef;
+        border-radius: 10px;
+        overflow: hidden;
+
+        .progress-bar {
+            background-color: $color-primary;
+            color: white;
+            text-align: center;
+            line-height: 20px;
+            font-weight: bold;
+            transition: width 1s ease-in-out;
+        }
+        }
+    }
+    }
+
+    // ========== COMPETENCES INFO ==========
+    .competences-info {
+    padding: 5rem 0;
+    background-color: #fff;
+
+    h2 {
+        color: $color-primary;
+        margin-bottom: 1rem;
+    }
+
+    p {
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .btn-custom {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: $color-primary;
+        color: #EEF7EE;
+        font-weight: 600;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background 0.3s ease-in-out;
+        margin-right: 10px;
+        margin-bottom: 10px;
+
+        &:hover {
+        background-color: darken($color-primary, 10%);
+        color: $color-tertiary;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .btn-custom {
+        display: block;
+        width: 100%;
+        }
+    }
+    }

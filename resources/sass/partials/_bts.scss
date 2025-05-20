@@ -1,0 +1,35 @@
+// Section BTS
+
+.bts{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    h1{
+        color: $color-primary;
+        margin-bottom: 1.5rem;
+    }
+    p{
+        font-size: $font-size-tiny;
+        color: $color-primary;
+        margin-bottom: 1.5rem;
+    }
+
+    .redirections{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        a{
+            margin: 0 10px;
+            text-decoration: none;
+            color: $color-primary;
+            font-size: $font-size-small;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            &:hover{
+                color: darken($color-primary, 10%);
+            }
+        }
+    }
+}

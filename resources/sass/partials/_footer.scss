@@ -1,0 +1,19 @@
+footer{
+    background-color: $color-primary;
+    padding: 2rem 0;
+    max-height: 100vh;
+    display: flex;
+    h3{
+        color: $color-secondary;
+    }
+    ul{
+        padding-left: 0;
+        li{
+            margin-bottom: 10px;
+        }
+    }
+    a{
+        color: $color-secondary;
+        text-decoration: none;
+    }
+}
