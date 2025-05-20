@@ -48,6 +48,7 @@ public function store(Request $request)
     $project->technologies = $request->technologies;
 
     if ($request->hasFile('image')) {
+         \Log::info('Image uploadée : ' . $request->file('image')->getClientOriginalName());
         $project->image = $request->file('image')->store('images', 'public');
     }
 
@@ -101,11 +102,23 @@ public function update(Request $request, Project $project)
     $project->description = $request->description;
     $project->technologies = $request->technologies;
 
+    // ✅ Remplacement d’image (et suppression de l’ancienne si existante)
     if ($request->hasFile('image')) {
+        if ($project->image && Storage::disk('public')->exists($project->image)) {
+            Storage::disk('public')->delete($project->image);
+        }
+
         $project->image = $request->file('image')->store('images', 'public');
     }
 
+    // ✅ Remplacement de PDF (ou URL)
     if ($request->hasFile('pdf')) {
+        // Supprimer l'ancien PDF s’il existe
+        if ($project->url && str_starts_with($project->url, 'storage/pdfs/')) {
+            $pdfPath = str_replace('storage/', '', $project->url);
+            Storage::disk('public')->delete($pdfPath);
+        }
+
         $project->url = 'storage/' . $request->file('pdf')->store('pdfs', 'public');
     } elseif ($request->url) {
         $project->url = $request->url;
@@ -115,6 +128,7 @@ public function update(Request $request, Project $project)
 
     return redirect()->route('admin.index')->with('success', 'Projet mis à jour.');
 }
+
 
 
 
