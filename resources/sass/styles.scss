@@ -114,6 +114,24 @@ body{
     }
     
 
+// Section Heading
+.heading{
+    text-align: center;
+    margin: 2rem 0;
+    height: 80vh;
+    .images_heading{
+        width:100%;
+        max-width: 350px;
+        margin-bottom: 20px;
+    }
+    p{
+        font-size: $font-size-small;
+        color: $color-primary;
+        margin-bottom: 1.5rem;
+        
+    }
+}
+
 // Section Introduction
 
 .introduction{
@@ -1011,3 +1029,37 @@ footer{
     }
     }
 
+#mentions-legales{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $color-secondary; 
+
+    h1 {
+        color: $color-primary;
+        margin-bottom: 1.5rem;
+    }
+    h2{
+        color: $color-primary;
+        margin-bottom: 1.25rem;
+    }
+
+    hr {
+        border-color: $color-primary;
+        margin-bottom: 2rem;
+    }
+    
+    p{
+        strong{
+            font-size: $font-size-small;
+        color: $color-primary;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        line-height: 1.6 ;
+        }
+        
+    }
+}

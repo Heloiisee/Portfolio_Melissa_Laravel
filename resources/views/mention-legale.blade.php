@@ -3,7 +3,7 @@
 @section('title', 'Mentions légales')
 
 @section('content')
-<section class="container py-5 text-start">
+<section class="container py-5 text-start" id="mentions-legales">
     <h1 class="display-5 fw-bold mb-4">Mentions légales</h1>
 
     <p><strong>Éditeur du site :</strong><br>
