@@ -1,4 +1,4 @@
-<footer class="bg-dark text-light mt-5 pt-4 pb-3">
+<footer class=" mt-5 pt-4 pb-3">
     <div class="container reveal">
         <div class="row">
             <div class="col-md-6 mb-4 mb-md-0 reveal-1">
@@ -27,11 +27,13 @@
                 </ul>
             </div>
         </div>
+
+        <div class="text-center mt-4 pt-3 border-top border-light-subtle">
+            <small class="text-secondary">
+                &copy; {{ now()->year }} Melissa Guicheron. Tous droits réservés.
+            </small>
+        </div>
     </div>
 
-    <div class="text-center mt-4 pt-3 border-top border-light-subtle">
-        <small class="text-secondary">
-            &copy; {{ now()->year }} Melissa Guicheron. Tous droits réservés.
-        </small>
-    </div>
+    
 </footer>
