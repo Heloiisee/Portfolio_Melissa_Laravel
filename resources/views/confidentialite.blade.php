@@ -2,7 +2,7 @@
 
 @section('title', 'Politique de confidentialité')
 @section('content')
-<section class="container py-5 text-start">
+<section class="container py-5 text-start" id="confidentialite">
     <h2>Politique de confidentialité</h2>
 
 <p>Ce site personnel a pour objectif de présenter le portfolio de Melissa Guicheron.</p>
