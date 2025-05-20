@@ -2,7 +2,7 @@
 
 // Importation des polices
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
+@import url('partials/_heading.scss');
 //Couleurs du site
 $color-primary: #2A3F30;
 $color-secondary: #fcfcfe;
@@ -113,24 +113,6 @@ body{
         }
     }
     
-
-// Section Heading
-.heading{
-    text-align: center;
-    margin: 2rem 0;
-    height: 80vh;
-    .images_heading{
-        width:100%;
-        max-width: 350px;
-        margin-bottom: 20px;
-    }
-    p{
-        font-size: $font-size-small;
-        color: $color-primary;
-        margin-bottom: 1.5rem;
-        
-    }
-}
 
 // Section Introduction
 

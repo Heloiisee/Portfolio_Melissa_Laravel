@@ -1,0 +1,17 @@
+// Section Heading
+.heading{
+    text-align: center;
+    margin: 2rem 0;
+    height: 80vh;
+    .images_heading{
+        width:100%;
+        max-width: 350px;
+        margin-bottom: 20px;
+    }
+    p{
+        font-size: $font-size-small;
+        color: $color-primary;
+        margin-bottom: 1.5rem;
+        
+    }
+}
