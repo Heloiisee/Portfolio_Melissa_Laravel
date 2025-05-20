@@ -19,7 +19,7 @@ Route::get('/veilles', [VeilleController::class, 'index'])->name('veilles.index'
 Route::get('/propos',[HomeController::class, 'propos'])->name('propos.index');
 Route::get('/contact', [ContactController::class, 'show'])->name('contact');
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
-Route::view('/', 'mentions-legale')->name('mentions-legale');
+Route::view('/', 'mention-legale')->name('mentions-legale');
 Route::view('/', 'confidentialite')->name('confidentialite');
 
 
