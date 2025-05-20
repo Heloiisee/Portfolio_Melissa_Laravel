@@ -17,7 +17,7 @@ Les informations transmises ne sont ni stockées durablement, ni partagées avec
 Ce site peut utiliser des cookies techniques nécessaires à son fonctionnement. Aucun cookie de suivi ou publicitaire n'est utilisé.</p>
 
 <p><strong>Responsable du traitement :</strong><br>
-Melissa Guicheron — Contact : <a href="mailto:melissaguicheron@gmail.com">ton.email@example.com</a></p>
+Melissa Guicheron — Contact : <a href="mailto:melissaguicheronml@gmail.com">melissaguicheronml@gmail.com</a></p>
 
 <p><strong>Vos droits :</strong><br>
 Conformément au RGPD, vous pouvez demander l’accès, la rectification ou la suppression de vos données en me contactant à l’adresse ci-dessus.</p>
