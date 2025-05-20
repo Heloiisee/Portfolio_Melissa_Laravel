@@ -22,4 +22,5 @@
     </div>
     <div class="text-center py-3">
         <p class="text-muted">&copy; {{ now()->year }} Melissa Guicheron. Tous droits réservés.</p>
+    </div>
 </footer>
