@@ -47,15 +47,20 @@ public function store(Request $request)
     $project->description = $request->description;
     $project->technologies = $request->technologies;
 
+    // 📁 Enregistrement de l'image dans public/images/
     if ($request->hasFile('image')) {
-    
-        $project->image = $request->file('image')->store('images', 'public');
+        $image = $request->file('image');
+        $filename = time() . '_' . $image->getClientOriginalName();
+        $image->move(public_path('images'), $filename);
+        $project->image = 'images/' . $filename;
     }
 
+    // 📄 PDF ou URL
     if ($request->hasFile('pdf')) {
-        $project->url = 'storage/' . $request->file('pdf')->store('pdfs', 'public');
+        $pdfPath = $request->file('pdf')->storeAs('pdfs', time() . '_' . $request->file('pdf')->getClientOriginalName(), 'public');
+        $project->url = 'storage/' . $pdfPath;
     } else {
-        $project->url = $request->url; // Si l'utilisateur met un lien
+        $project->url = $request->url;
     }
 
     $project->save();
@@ -68,14 +73,21 @@ public function store(Request $request)
 
 public function destroy(Project $project)
 {
-if ($project->image) {
-    Storage::delete('public/' . $project->image);
+    // 🗑️ Suppression de l'image physique si elle existe
+    if ($project->image && file_exists(public_path($project->image))) {
+        unlink(public_path($project->image));
+    }
+
+    // 🗑️ (Optionnel) Suppression du fichier PDF aussi
+    if ($project->url && str_starts_with($project->url, 'storage/pdfs/') && file_exists(public_path($project->url))) {
+        unlink(public_path($project->url));
+    }
+
+    $project->delete();
+
+    return redirect()->route('admin.index')->with('success', 'Projet supprimé.');
 }
 
-$project->delete();
-
-return redirect()->route('admin.index')->with('success', 'Projet supprimé.');
-}
 
 public function show(Project $project)
 {
@@ -102,24 +114,18 @@ public function update(Request $request, Project $project)
     $project->description = $request->description;
     $project->technologies = $request->technologies;
 
-    // ✅ Remplacement d’image (et suppression de l’ancienne si existante)
+    // 📁 Mise à jour de l'image
     if ($request->hasFile('image')) {
-        if ($project->image && Storage::disk('public')->exists($project->image)) {
-            Storage::disk('public')->delete($project->image);
-        }
-
-        $project->image = $request->file('image')->store('images', 'public');
+        $image = $request->file('image');
+        $filename = time() . '_' . $image->getClientOriginalName();
+        $image->move(public_path('images'), $filename);
+        $project->image = 'images/' . $filename;
     }
 
-    // ✅ Remplacement de PDF (ou URL)
+    // 📄 Mise à jour du PDF ou de l'URL
     if ($request->hasFile('pdf')) {
-        // Supprimer l'ancien PDF s’il existe
-        if ($project->url && str_starts_with($project->url, 'storage/pdfs/')) {
-            $pdfPath = str_replace('storage/', '', $project->url);
-            Storage::disk('public')->delete($pdfPath);
-        }
-
-        $project->url = 'storage/' . $request->file('pdf')->store('pdfs', 'public');
+        $pdfPath = $request->file('pdf')->storeAs('pdfs', time() . '_' . $request->file('pdf')->getClientOriginalName(), 'public');
+        $project->url = 'storage/' . $pdfPath;
     } elseif ($request->url) {
         $project->url = $request->url;
     }
