@@ -65,7 +65,7 @@
                             class="mt-1 block w-full text-sm text-gray-700 dark:text-white" />
                         
                         @if($project->image)
-                            <img src="{{ asset('storage/' . $project->image) }}" alt="Image actuelle" class="mt-3 rounded shadow w-32">
+                            <img src="{{ Storage::url($project->image) }}" alt="Image du projet">
                         @endif
                     </div>
 
