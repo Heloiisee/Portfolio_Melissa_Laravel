@@ -48,7 +48,7 @@ public function store(Request $request)
     $project->technologies = $request->technologies;
 
     if ($request->hasFile('image')) {
-         \Log::info('Image uploadée : ' . $request->file('image')->getClientOriginalName());
+    
         $project->image = $request->file('image')->store('images', 'public');
     }
 
