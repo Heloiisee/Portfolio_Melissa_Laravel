@@ -126,6 +126,12 @@ public function update(Request $request, Project $project)
 
     $project->save();
 
+    dd([
+    'image' => $project->image,
+    'fichier_existe' => Storage::disk('public')->exists($project->image),
+]);
+
+
     return redirect()->route('admin.index')->with('success', 'Projet mis à jour.');
 }
 
