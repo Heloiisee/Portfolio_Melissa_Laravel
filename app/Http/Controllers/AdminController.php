@@ -47,13 +47,12 @@ public function store(Request $request)
     $project->description = $request->description;
     $project->technologies = $request->technologies;
 
-    // 📁 Enregistrement de l'image dans public/images/
     if ($request->hasFile('image')) {
-        $image = $request->file('image');
-        $filename = time() . '_' . $image->getClientOriginalName();
-        $image->move(public_path('images'), $filename);
-        $project->image = 'images/' . $filename;
-    }
+    $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
+    $request->file('image')->move(public_path('images'), $imageName);
+    $project->image = 'images/' . $imageName;
+}
+
 
     // 📄 PDF ou URL
     if ($request->hasFile('pdf')) {
@@ -114,13 +113,12 @@ public function update(Request $request, Project $project)
     $project->description = $request->description;
     $project->technologies = $request->technologies;
 
-    // 📁 Mise à jour de l'image
     if ($request->hasFile('image')) {
-        $image = $request->file('image');
-        $filename = time() . '_' . $image->getClientOriginalName();
-        $image->move(public_path('images'), $filename);
-        $project->image = 'images/' . $filename;
-    }
+    $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
+    $request->file('image')->move(public_path('images'), $imageName);
+    $project->image = 'images/' . $imageName;
+}
+
 
     // 📄 Mise à jour du PDF ou de l'URL
     if ($request->hasFile('pdf')) {

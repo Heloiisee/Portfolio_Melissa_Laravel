@@ -34,7 +34,7 @@
                     <div>
                         <h3 class="text-lg font-semibold">Image du projet</h3>
                         @if($project->image && file_exists(public_path('storage/' . $project->image)))
-                            <img src="{{ asset('storage/' . $project->image) }}" alt="Image du projet {{ $project->titre }}" class="mt-2 rounded shadow w-full max-w-xs">
+                            <img src="{{ asset($project->image) }}" alt="{{ $project->titre }}">
                         @else
                             <p class="italic text-sm">Aucune image disponible</p>
                         @endif

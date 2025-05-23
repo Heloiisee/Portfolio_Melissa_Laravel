@@ -59,7 +59,7 @@
 
                     <div class="mb-4">
                         <label for="image" class="block font-medium text-sm text-gray-700 dark:text-gray-200">Image du projet</label>
-                        <input type="file" name="image" id="image"
+                        <input type="file" name="image" id="image" accept="image/*"
                             class="mt-1 block w-full text-sm text-gray-900 file:bg-indigo-50 file:border file:border-gray-300 file:rounded file:px-4 file:py-2 dark:text-white dark:bg-gray-700 dark:file:bg-gray-600">
                         <small class="text-gray-500 dark:text-gray-400">Formats acceptés : jpg, jpeg, png, gif (max 2MB)</small>
                     </div>
