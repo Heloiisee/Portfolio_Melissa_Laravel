@@ -44,16 +44,17 @@
                             @if ($project->image)
                                 <img 
                                     loading="lazy" 
-                                    src="{{ asset('storage/' . $project->image) }}" 
-                                    class="card-img-top" 
+                                    src="{{ asset($project->image) }}" 
+                                    class="card-img-top h-48 w-full object-cover rounded-t" 
                                     alt="Capture d'écran du projet {{ $project->titre }}">
                             @else
                                 <img 
                                     loading="lazy" 
                                     src="{{ asset('assets/images/default-project.png') }}" 
-                                    class="card-img-top" 
+                                    class="card-img-top h-48 w-full object-cover rounded-t" 
                                     alt="Image par défaut du projet">
                             @endif
+
 
                             <div class="card-body">
                                 <h5 class="card-title">{{ $project->titre }}</h5>
