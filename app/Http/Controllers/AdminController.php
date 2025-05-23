@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+
 
 use App\Models\Project;
 
@@ -47,18 +49,25 @@ public function store(Request $request)
     $project->description = $request->description;
     $project->technologies = $request->technologies;
 
+    // ➤ Upload image sur Cloudinary
     if ($request->hasFile('image')) {
-        $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
-        $request->file('image')->move(public_path('images'), $imageName);
-        $project->image = 'images/' . $imageName;
+        $uploadedImage = Cloudinary::upload($request->file('image')->getRealPath(), [
+            'folder' => 'portfolio_projects',
+        ]);
+        $project->image = $uploadedImage->getSecurePath(); // URL directe de l'image
+        $project->image_public_id = $uploadedImage->getPublicId(); // ID public de l'image
     }
 
+    // ➤ Upload PDF sur Cloudinary (en tant que fichier "raw")
     if ($request->hasFile('pdf')) {
-        $pdfName = time() . '_' . $request->file('pdf')->getClientOriginalName();
-        $request->file('pdf')->move(public_path('pdfs'), $pdfName);
-        $project->url = 'pdfs/' . $pdfName;
+        $uploadedPdf = Cloudinary::upload($request->file('pdf')->getRealPath(), [
+            'folder' => 'portfolio_pdfs',
+            'resource_type' => 'raw',
+        ]);
+        $project->url = $uploadedPdf->getSecurePath(); // URL du fichier PDF
+        $project->pdf_public_id = $uploadedPdf->getPublicId(); // ID public du PDF
     } else {
-        $project->url = $request->url;
+        $project->url = $request->url; // fallback si c’est un lien externe
     }
 
     $project->save();
@@ -68,17 +77,16 @@ public function store(Request $request)
 
 
 
-
 public function destroy(Project $project)
 {
-    // 🗑️ Suppression de l'image physique si elle existe
-    if ($project->image && file_exists(public_path($project->image))) {
-        unlink(public_path($project->image));
+    // Supprimer image sur Cloudinary
+    if ($project->image_public_id) {
+        Cloudinary::destroy($project->image_public_id);
     }
 
-    // 🗑️ (Optionnel) Suppression du fichier PDF aussi
-    if ($project->url && str_starts_with($project->url, 'storage/pdfs/') && file_exists(public_path($project->url))) {
-        unlink(public_path($project->url));
+    // Supprimer PDF sur Cloudinary
+    if ($project->pdf_public_id) {
+        Cloudinary::destroy($project->pdf_public_id, ['resource_type' => 'raw']);
     }
 
     $project->delete();
@@ -112,16 +120,21 @@ public function update(Request $request, Project $project)
     $project->description = $request->description;
     $project->technologies = $request->technologies;
 
+    // ➤ Image vers Cloudinary
     if ($request->hasFile('image')) {
-        $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
-        $request->file('image')->move(public_path('images'), $imageName);
-        $project->image = 'images/' . $imageName;
+        $uploadedImage = Cloudinary::upload($request->file('image')->getRealPath(), [
+            'folder' => 'portfolio_projects',
+        ]);
+        $project->image = $uploadedImage->getSecurePath();
     }
 
+    // ➤ PDF vers Cloudinary
     if ($request->hasFile('pdf')) {
-        $pdfName = time() . '_' . $request->file('pdf')->getClientOriginalName();
-        $request->file('pdf')->move(public_path('pdfs'), $pdfName);
-        $project->url = 'pdfs/' . $pdfName;
+        $uploadedPdf = Cloudinary::upload($request->file('pdf')->getRealPath(), [
+            'folder' => 'portfolio_pdfs',
+            'resource_type' => 'raw',
+        ]);
+        $project->url = $uploadedPdf->getSecurePath(); // URL sécurisée du PDF
     } elseif ($request->url) {
         $project->url = $request->url;
     }
@@ -130,6 +143,7 @@ public function update(Request $request, Project $project)
 
     return redirect()->route('admin.index')->with('success', 'Projet mis à jour.');
 }
+
 
 
 
