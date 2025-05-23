@@ -134,6 +134,7 @@ public function update(Request $request, Project $project)
             $request->file('image')->getRealPath(),
             ['folder' => 'portfolio_projects']
         );
+        dd($uploadedImage);
         $project->image = $uploadedImage['secure_url'];
         $project->image_public_id = $uploadedImage['public_id'];
     }
