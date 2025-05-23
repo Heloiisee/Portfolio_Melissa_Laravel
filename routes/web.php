@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\CertificationController;
 use App\Http\Controllers\Admin\EducationController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/projets', [ProjectController::class, 'showProjects'])->name('projects.index');
@@ -29,6 +30,17 @@ Route::get('/confidentialite', function () {
 })->name('confidentialite');
 
 
+Route::get('/cloudinary-test', function () {
+    try {
+        $uploaded = Cloudinary::upload(public_path('images/icons8-courrier-50.png'), [
+            'folder' => 'portfolio_projects_test'
+        ]);
+
+        return $uploaded->getSecurePath(); // ✅ URL de l’image Cloudinary
+    } catch (\Exception $e) {
+        return 'Erreur Cloudinary : ' . $e->getMessage(); // ❌ Erreur affichée
+    }
+});
 
 Route::middleware(['auth'])->group(function () {
     // Admin routes destinées aux projets
