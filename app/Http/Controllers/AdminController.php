@@ -48,16 +48,15 @@ public function store(Request $request)
     $project->technologies = $request->technologies;
 
     if ($request->hasFile('image')) {
-    $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
-    $request->file('image')->move(public_path('images'), $imageName);
-    $project->image = 'images/' . $imageName;
-}
+        $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
+        $request->file('image')->move(public_path('images'), $imageName);
+        $project->image = 'images/' . $imageName;
+    }
 
-
-    // 📄 PDF ou URL
     if ($request->hasFile('pdf')) {
-        $pdfPath = $request->file('pdf')->storeAs('pdfs', time() . '_' . $request->file('pdf')->getClientOriginalName(), 'public');
-        $project->url = 'storage/' . $pdfPath;
+        $pdfName = time() . '_' . $request->file('pdf')->getClientOriginalName();
+        $request->file('pdf')->move(public_path('pdfs'), $pdfName);
+        $project->url = 'pdfs/' . $pdfName;
     } else {
         $project->url = $request->url;
     }
@@ -114,16 +113,15 @@ public function update(Request $request, Project $project)
     $project->technologies = $request->technologies;
 
     if ($request->hasFile('image')) {
-    $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
-    $request->file('image')->move(public_path('images'), $imageName);
-    $project->image = 'images/' . $imageName;
-}
+        $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
+        $request->file('image')->move(public_path('images'), $imageName);
+        $project->image = 'images/' . $imageName;
+    }
 
-
-    // 📄 Mise à jour du PDF ou de l'URL
     if ($request->hasFile('pdf')) {
-        $pdfPath = $request->file('pdf')->storeAs('pdfs', time() . '_' . $request->file('pdf')->getClientOriginalName(), 'public');
-        $project->url = 'storage/' . $pdfPath;
+        $pdfName = time() . '_' . $request->file('pdf')->getClientOriginalName();
+        $request->file('pdf')->move(public_path('pdfs'), $pdfName);
+        $project->url = 'pdfs/' . $pdfName;
     } elseif ($request->url) {
         $project->url = $request->url;
     }
@@ -132,6 +130,7 @@ public function update(Request $request, Project $project)
 
     return redirect()->route('admin.index')->with('success', 'Projet mis à jour.');
 }
+
 
 
 

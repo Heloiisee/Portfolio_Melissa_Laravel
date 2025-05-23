@@ -25,7 +25,7 @@
                 <div class="col-md-4 mb-4 reveal-3">
                     <div class="card">
                         @if($project->image)
-                            <img loading="lazy" src="{{ asset('storage/' . $project->image) }}" class="card-img-top" alt="{{ $project->titre }}">
+                            <img src="{{ asset($project->image) }}" alt="{{ $project->titre }}">
                         @else
                             <img loading="lazy" src="{{ asset('assets/images/default-project.png') }}" class="card-img-top" alt="Image par défaut">
                         @endif
