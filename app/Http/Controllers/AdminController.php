@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 
+
 use App\Models\Project;
 
 class AdminController extends Controller
@@ -33,6 +34,7 @@ public function create()
     // Logique pour afficher le formulaire de création d'un projet
     return view('admin.projets.create');
 }
+
 public function store(Request $request)
 {
     $request->validate([
@@ -49,31 +51,33 @@ public function store(Request $request)
     $project->description = $request->description;
     $project->technologies = $request->technologies;
 
-    // ➤ Upload image sur Cloudinary
+    // Upload image vers Cloudinary
     if ($request->hasFile('image')) {
-        $uploadedImage = Cloudinary::upload($request->file('image')->getRealPath(), [
-            'folder' => 'portfolio_projects',
-        ]);
-        $project->image = $uploadedImage->getSecurePath(); // URL directe de l'image
-        $project->image_public_id = $uploadedImage->getPublicId(); // ID public de l'image
+        $uploadedImage = Cloudinary::upload(
+            $request->file('image')->getRealPath(),
+            ['folder' => 'portfolio_projects']
+        );
+        $project->image = $uploadedImage['secure_url'];
+        $project->image_public_id = $uploadedImage['public_id'];
     }
 
-    // ➤ Upload PDF sur Cloudinary (en tant que fichier "raw")
+    // Upload PDF vers Cloudinary
     if ($request->hasFile('pdf')) {
-        $uploadedPdf = Cloudinary::upload($request->file('pdf')->getRealPath(), [
-            'folder' => 'portfolio_pdfs',
-            'resource_type' => 'raw',
-        ]);
-        $project->url = $uploadedPdf->getSecurePath(); // URL du fichier PDF
-        $project->pdf_public_id = $uploadedPdf->getPublicId(); // ID public du PDF
+        $uploadedPdf = Cloudinary::upload(
+            $request->file('pdf')->getRealPath(),
+            ['folder' => 'portfolio_pdfs', 'resource_type' => 'raw']
+        );
+        $project->url = $uploadedPdf['secure_url'];
+        $project->pdf_public_id = $uploadedPdf['public_id'];
     } else {
-        $project->url = $request->url; // fallback si c’est un lien externe
+        $project->url = $request->url;
     }
 
     $project->save();
 
     return redirect()->route('admin.index')->with('success', 'Projet ajouté avec succès.');
 }
+
 
 
 
@@ -120,21 +124,32 @@ public function update(Request $request, Project $project)
     $project->description = $request->description;
     $project->technologies = $request->technologies;
 
-    // ➤ Image vers Cloudinary
+    // Remplacer image si nouvelle
     if ($request->hasFile('image')) {
-        $uploadedImage = Cloudinary::upload($request->file('image')->getRealPath(), [
-            'folder' => 'portfolio_projects',
-        ]);
-        $project->image = $uploadedImage->getSecurePath();
+        if ($project->image_public_id) {
+            Cloudinary::destroy($project->image_public_id);
+        }
+
+        $uploadedImage = Cloudinary::upload(
+            $request->file('image')->getRealPath(),
+            ['folder' => 'portfolio_projects']
+        );
+        $project->image = $uploadedImage['secure_url'];
+        $project->image_public_id = $uploadedImage['public_id'];
     }
 
-    // ➤ PDF vers Cloudinary
+    // Remplacer PDF si nouveau
     if ($request->hasFile('pdf')) {
-        $uploadedPdf = Cloudinary::upload($request->file('pdf')->getRealPath(), [
-            'folder' => 'portfolio_pdfs',
-            'resource_type' => 'raw',
-        ]);
-        $project->url = $uploadedPdf->getSecurePath(); // URL sécurisée du PDF
+        if ($project->pdf_public_id) {
+            Cloudinary::destroy($project->pdf_public_id, ['resource_type' => 'raw']);
+        }
+
+        $uploadedPdf = Cloudinary::upload(
+            $request->file('pdf')->getRealPath(),
+            ['folder' => 'portfolio_pdfs', 'resource_type' => 'raw']
+        );
+        $project->url = $uploadedPdf['secure_url'];
+        $project->pdf_public_id = $uploadedPdf['public_id'];
     } elseif ($request->url) {
         $project->url = $request->url;
     }
@@ -143,6 +158,7 @@ public function update(Request $request, Project $project)
 
     return redirect()->route('admin.index')->with('success', 'Projet mis à jour.');
 }
+
 
 
 
