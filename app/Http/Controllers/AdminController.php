@@ -130,11 +130,9 @@ public function update(Request $request, Project $project)
             Cloudinary::destroy($project->image_public_id);
         }
 
-        $uploadedImage = Cloudinary::upload(
-            $request->file('image')->getRealPath(),
-            ['folder' => 'portfolio_projects']
-        );
+        $uploadedImage = $request->file('image')->storeOnCloudinary('portfolio_projects');
         dd($uploadedImage);
+
         $project->image = $uploadedImage['secure_url'];
         $project->image_public_id = $uploadedImage['public_id'];
     }
