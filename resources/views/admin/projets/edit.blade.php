@@ -65,7 +65,7 @@
                             class="mt-1 block w-full text-sm text-gray-700 dark:text-white" />
                         
                         @if($project->image)
-                            <img src="{{ asset($project->image) }}" alt="{{ $project->titre }}" class="mt-2 mb-2 w-1/2 h-auto rounded-md shadow-sm">
+                            <img src="{{ asset($project->image) }}" alt="{{ $project->titre }}" ">
                         @endif
                     </div>
 
